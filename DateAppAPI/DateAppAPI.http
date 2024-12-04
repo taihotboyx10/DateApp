@@ -1,0 +1,6 @@
+@DateAppAPI_HostAddress = http://localhost:5096
+
+GET {{DateAppAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
