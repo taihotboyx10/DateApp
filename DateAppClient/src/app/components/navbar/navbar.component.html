@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Dating App</a>
+      @if(accountService.currentUser()){
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link">Matches</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Lists</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Messages</a>
+          </li>
+        </ul>
+      }
+      @if(accountService.currentUser()){
+        <!-- dropdown -->
+         <div class="dropdown" dropdown>
+          <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+          <div class="dropdown-menu" *dropdownMenu>
+            <a class="dropdown-item">Edit profile</a>
+            <a class="dropdown-item" (click)="onLogout()">Logout</a>
+          </div>
+         </div>
+      }
+      @if(!accountService.currentUser()) {
+        <form [formGroup]="loginForm" class="d-flex">
+          <input formControlName="UserName" name="username" class="form-control me-2" type="text" placeholder="User name">
+          <input formControlName="Pwd" name="password" class="form-control me-2" type="password" placeholder="Password">
+          <button class="btn btn-outline-success" (click)="onLogin()">Login</button>
+        </form>
+      }
+    </div>
+</nav>

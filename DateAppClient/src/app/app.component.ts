@@ -1,25 +1,40 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Console, error } from 'console';
+import { NavbarComponent } from "./components/navbar/navbar.component";
+import { AccountService } from '../../services/Account.service';
+import { HomePageComponent } from "./components/home-page/home-page.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, JsonPipe],
+  imports: [RouterOutlet, NavbarComponent, HomePageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
   http = inject(HttpClient)
+  accountService = inject(AccountService)
   user: any;
 
   ngOnInit(): void {
-    this.http.get("https://localhost:5097/api/user/2").subscribe({
-      next: response => this.user = response,
-      // error: response => console.log(response.message),
-      error: response => console.log(response),
-      complete: () => alert('Request has complete!'),
-    })
+    // this.getUsers();
+    this.setCurrentUser();
   }
+
+  setCurrentUser(){
+    const loginUser = localStorage.getItem('user');
+    if(!loginUser) return;
+    if(loginUser){
+      this.accountService.currentUser.set(JSON.parse(loginUser));
+    }
+  }
+
+  // getUsers(){
+  //   this.http.get(API_URLS.BASE_URL + API_URLS.USER.GET_ALL_USER).subscribe({
+  //     next: response => { console.log(response) },
+  //     error: error => { console.log(error) },
+  //     complete: () => console.log("complete!"),
+  //   }
+  //   )
+  // }
 }

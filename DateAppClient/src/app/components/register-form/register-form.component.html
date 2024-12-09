@@ -1,0 +1,33 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2 class="text-center text-primary" >Sign up</h2>
+    <hr>
+    <!-- Username Field -->
+    <div class="mb-3 form-floating">
+      <input id="username" formControlName="UserName" class="form-control"/>
+      <!-- Hiển thị lỗi nếu username không hợp lệ -->
+      <div *ngIf="registerForm.get('UserName')?.touched && registerForm.get('UserName')?.invalid">
+        <small *ngIf="registerForm.get('UserName')?.errors?.['required']" class="text-danger">Username is required.</small>
+        <small *ngIf="registerForm.get('UserName')?.errors?.['minlength']" class="text-danger">Username must be at least 4 characters.</small>
+        <small *ngIf="registerForm.get('UserName')?.errors?.['maxlength']" class="text-danger">Username must be at least 10 characters.</small>
+      </div>
+      <label>Username</label>
+    </div>
+  
+    <!-- Password Field -->
+    <div class="mb-3 form-floating">
+      <input id="password" type="password" formControlName="Pwd" class="form-control"/>
+      <!-- Hiển thị lỗi nếu password không hợp lệ -->
+      <div *ngIf="registerForm.get('Pwd')?.touched && registerForm.get('Pwd')?.invalid">
+        <small *ngIf="registerForm.get('Pwd')?.errors?.['required']" class="text-danger">Password is required.</small>
+        <!-- <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small> -->
+      </div>
+      <label>Password</label>
+    </div>
+  
+    <!-- Submit Button -->
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-success me-2" [disabled]="registerForm.invalid">Register</button>
+        <button type="button" class="btn btn-default me-2" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+  
