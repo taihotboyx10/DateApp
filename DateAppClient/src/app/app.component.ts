@@ -7,7 +7,7 @@ import { HomePageComponent } from "./components/home-page/home-page.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, HomePageComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
   }
 
   setCurrentUser(){
+    if (typeof window === 'undefined') return;
     const loginUser = localStorage.getItem('user');
     if(!loginUser) return;
     if(loginUser){

@@ -9,22 +9,13 @@ using DateAppAPI.Interfaces;
 
 namespace DateAppAPI.Controllers;
 
-public class AccountController:BaseAPIController{
-    private readonly DataContext _dataContext;
-    private readonly ITokenService _tokenService;
-    public AccountController(DataContext dataContext, ITokenService tokenService){
-        this._dataContext = dataContext;
-        this._tokenService = tokenService;
-    }
-
+public class AccountController(IUserRepo _userRepo, ITokenService _tokenService):BaseAPIController{
     // [HttpPost("register")] //account/register
     [HttpPost]
     [Route("register")]
-    // [NonAction]
     public async Task<ActionResult<UserDTO>> RegisterUser(RegisterUserDTO registerUserDTO){
         // check username existing
         if(await ChkExistUser(registerUserDTO.UserName)) return BadRequest("User name is taken");
-
         using var hmac = new HMACSHA512();
         var user = new AppUser(){
             UserName = registerUserDTO.UserName.ToLower(),
@@ -42,9 +33,6 @@ public class AccountController:BaseAPIController{
 
     // check existing user
     private async Task<bool> ChkExistUser(string newUserName){
-        // var existUser = await _dataContext.AppUsers.Where(u => u.UserName == newUserName).FirstOrDefaultAsync();
-        // if(existUser != null) return true;
-        // return false;
         var result = await _dataContext.AppUsers.AnyAsync(u => u.UserName.ToLower() == newUserName.ToLower());
         return result;
     }

@@ -1,12 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Pipe } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AccountService } from '../../../../services/Account.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [FormsModule, ReactiveFormsModule, BsDropdownModule],
+  imports: [FormsModule, ReactiveFormsModule, BsDropdownModule, RouterLink, RouterLinkActive, TitleCasePipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -18,10 +19,14 @@ export class NavbarComponent {
     Pwd: new FormControl(),
   });
 
+  route = inject(Router);
+
   onLogin(){
     this.accountService.Login(this.loginForm.value).subscribe({
       next: response => {
-        console.log(response);
+        // console.log(response);
+        this.route.navigateByUrl('member');
+        console.log(this.accountService.currentUser());
       } ,
       error: error => {
         console.log(error);
@@ -31,6 +36,7 @@ export class NavbarComponent {
 
   onLogout(){
     this.accountService.Logout();
+    this.route.navigateByUrl('/');
   }
 
 }

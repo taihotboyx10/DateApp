@@ -1,4 +1,5 @@
 using DateAppAPI.Data;
+using DateAppAPI.Entities;
 using DateAppAPI.Interfaces;
 using DateAppAPI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,10 @@ public static class AppExtention{
         service.AddScoped<ITokenService, TokenService>();
         // Add cors
         service.AddCors();
+        // Add user repo
+        service.AddScoped<IUserRepo, UserRepo>();
+        // Add auto mapper
+        service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         return service;
     }
