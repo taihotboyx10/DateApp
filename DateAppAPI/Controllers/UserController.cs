@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace DateAppAPI.Controllers;
 
 // Yêu cầu xác thực và ủy quyền
-[Authorize]
+// [Authorize]
 public class UserController(IUserRepo _userRepo):BaseAPIController
 {
-    // truy cập vào method or endpoint, ngay cả khi toàn bộ controller hoặc ứng dụng yêu cầu xác thực.
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers(){
         var users = await _userRepo.GetAllUserAsync();

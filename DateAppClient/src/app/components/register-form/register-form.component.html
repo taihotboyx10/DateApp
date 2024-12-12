@@ -6,9 +6,11 @@
       <input id="username" formControlName="UserName" class="form-control"/>
       <!-- Hiển thị lỗi nếu username không hợp lệ -->
       <div *ngIf="registerForm.get('UserName')?.touched && registerForm.get('UserName')?.invalid">
-        <small *ngIf="registerForm.get('UserName')?.errors?.['required']" class="text-danger">Username is required.</small>
-        <small *ngIf="registerForm.get('UserName')?.errors?.['minlength']" class="text-danger">Username must be at least 4 characters.</small>
-        <small *ngIf="registerForm.get('UserName')?.errors?.['maxlength']" class="text-danger">Username must be at least 10 characters.</small>
+        <small *ngIf="registerForm.get('UserName')?.errors?.['required']" class="text-danger">User name is required</small>
+        <small *ngIf="registerForm.get('UserName')?.errors?.['maxlength']" class="text-danger">User name must be at most 20 characters</small>
+      </div>
+      <div *ngIf="userNameConflictMsg !== ''">
+        <small class="text-danger">{{userNameConflictMsg}}</small>
       </div>
       <label>Username</label>
     </div>
@@ -18,12 +20,98 @@
       <input id="password" type="password" formControlName="Pwd" class="form-control"/>
       <!-- Hiển thị lỗi nếu password không hợp lệ -->
       <div *ngIf="registerForm.get('Pwd')?.touched && registerForm.get('Pwd')?.invalid">
-        <small *ngIf="registerForm.get('Pwd')?.errors?.['required']" class="text-danger">Password is required.</small>
-        <!-- <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small> -->
+        <small *ngIf="registerForm.get('Pwd')?.errors?.['required']" class="text-danger">Password is required</small>
+        <small *ngIf="registerForm.get('Pwd')?.errors?.['minlength']" class="text-danger">Password must be at least 6 characters</small>
+        <small *ngIf="registerForm.get('Pwd')?.errors?.['maxlength']" class="text-danger">Password must be at most 15 characters</small>
       </div>
       <label>Password</label>
     </div>
-  
+
+    <!-- ConfirmPwd Field -->
+    <div class="mb-3 form-floating">
+      <input id="confirmpwd" type="password" formControlName="ConfirmPwd" class="form-control"/>
+      <div *ngIf="registerForm.get('ConfirmPwd')?.touched && registerForm.get('ConfirmPwd')?.invalid">
+        <small *ngIf="registerForm.get('ConfirmPwd')?.errors?.['required']" class="text-danger">Confirm password is required</small>
+        <small *ngIf="registerForm.get('ConfirmPwd')?.errors?.['mustMatch']" class="text-danger">Password is not match</small>
+      </div>
+      <label>Confirm password</label>
+    </div>
+
+    <!-- DoB Field -->
+    <div class="mb-3 form-floating">
+      <input id="dob" type="date" formControlName="DoB" class="form-control"/>
+      <div *ngIf="registerForm.get('DoB')?.invalid && registerForm.get('DoB')?.touched && registerForm.get('DoB')?.errors?.['required']">
+        <small class="text-danger">Date of birth is required</small>
+      </div>
+      <label>Date of Birth</label>
+    </div>
+
+    <!-- Gender Field -->
+    <div class="mb-3">
+      <!-- <label class="form-label">Gender</label> -->
+      <div class="d-flex align-items-center">
+        <div class="form-check me-3">
+          <input type="radio" class="form-check-input" id="male" name="Gender" value="male" formControlName="Gender"/>Male
+        </div>
+        <div class="form-check me-3">
+          <input type="radio" class="form-check-input" id="female" name="Gender" value="female" formControlName="Gender"/>Female
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="other" name="Gender" value="other" formControlName="Gender"/>Other
+        </div>
+      </div>
+    </div>
+    
+    <!-- Introductions Field -->
+    <div class="mb-3 form-floating">
+      <textarea id="introductions" formControlName="Introductions" class="form-control"></textarea>
+      <div *ngIf="registerForm.get('Introductions')?.touched && registerForm.get('Introductions')?.invalid">
+        <small *ngIf="registerForm.get('Introductions')?.errors?.['maxlength']" class="text-danger">Introductions must be at most 15 characters</small>
+      </div>
+      <label>Introductions</label>
+    </div>
+    
+    <!-- Interest Field -->
+    <div class="mb-3 form-floating">
+      <input id="interest" type="text" formControlName="Interest" class="form-control"/>
+      <div *ngIf="registerForm.get('Interest')?.touched && registerForm.get('Interest')?.invalid">
+        <small *ngIf="registerForm.get('Interest')?.errors?.['maxlength']" class="text-danger">Interest must be at most 50 characters</small>
+      </div>
+      <label>Interest</label>
+    </div>
+
+    <!-- LookingFor Field -->
+    <div class="mb-3 form-floating">
+      <input id="lookingfor" type="text" formControlName="LookingFor" class="form-control"/>
+      <div *ngIf="registerForm.get('LookingFor')?.touched && registerForm.get('LookingFor')?.invalid">
+        <small *ngIf="registerForm.get('LookingFor')?.errors?.['maxlength']" class="text-danger">Looking for must be at most 50 characters</small>
+      </div>
+      <label>Looking For</label>
+    </div>
+
+    <!-- City Field -->
+    <div class="mb-3 form-floating">
+      <input id="city" type="text" formControlName="City" class="form-control"/>
+      <div *ngIf="registerForm.get('City')?.touched && registerForm.get('City')?.invalid">
+        <small *ngIf="registerForm.get('City')?.errors?.['maxlength']" class="text-danger">City must be at most 15 characters</small>
+      </div>
+      <label>City</label>
+    </div>
+
+    <!-- Country Field -->
+    <div class="mb-3 form-floating">
+      <input id="country" type="text" formControlName="Country" class="form-control"/>
+      <div *ngIf="registerForm.get('Country')?.touched && registerForm.get('Country')?.invalid">
+        <small *ngIf="registerForm.get('Country')?.errors?.['maxlength']" class="text-danger">Country must be at most 15 characters</small>
+      </div>
+      <!-- @if(registerForm.get('Country')?.touched && registerForm.get('Country')?.invalid){
+        @if(registerForm.get('Country')?.errors?.['maxLength']){
+          <small class="text-danger">Country must be at most 15 characters</small>
+        }
+      } -->
+      <label>Country</label>
+    </div>
+
     <!-- Submit Button -->
     <div class="form-group text-center">
         <button type="submit" class="btn btn-success me-2" [disabled]="registerForm.invalid">Register</button>

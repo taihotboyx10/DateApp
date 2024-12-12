@@ -34,6 +34,15 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             const navigateEXtras: NavigationExtras = {state: {error: error.error}};
             route.navigateByUrl("/server-error", navigateEXtras);
             break;
+          // Successful
+          case 200:
+            break;
+          // Conflict
+          case 409:
+            break;
+          // No content
+          case 204:
+            break;
           default:
             alert("Something went wrong");
             break;

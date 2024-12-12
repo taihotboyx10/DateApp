@@ -8,16 +8,18 @@ import { authorGuard } from './_guards/author.guard';
 import { NotFoundComponent } from './components/errors/not-found/not-found.component';
 import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
 import { ErrtestComponent } from './components/errors/errtest/errtest.component';
+import { UpdateFormComponent } from './components/update-form/update-form.component';
 
 export const routes: Routes = [
     {path: '', component:HomePageComponent},
     {
         path:'',
         runGuardsAndResolvers: 'always',
-        canActivate: [authorGuard],
+        // canActivate: [authorGuard],
         children: [
             {path: 'member', component:MemberListComponent},
             {path: 'member/:id', component:MemberDetailComponent},
+            {path: 'member/update/:id', component:UpdateFormComponent},
             {path: 'lists', component:ListsComponent},
             {path: 'Messages', component:MessagesComponent},
         ]

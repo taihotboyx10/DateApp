@@ -12,8 +12,9 @@ public class AppUser
     public byte[] PwdHash { get; set; } = [];
     public byte[] PwdSalt { get; set; } = [];
     public DateOnly DoB { get; set; }
-    public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-    public DateTime LastActive { get; set; } = DateTime.UtcNow;
+    public DateTime CreateDate { get; set; } = DateTime.Now;
+    public DateTime UpdateDate { get; set; } = DateTime.Now;
+    public DateTime LastActive { get; set; } = DateTime.Now;
     public string? Gender { get; set; }
     public string? Introductions { get; set; }
     public string? Interest { get; set; }
