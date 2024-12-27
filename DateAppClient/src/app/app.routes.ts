@@ -18,8 +18,8 @@ export const routes: Routes = [
         // canActivate: [authorGuard],
         children: [
             {path: 'member', component:MemberListComponent},
-            {path: 'member/:id', component:MemberDetailComponent},
-            {path: 'member/update/:id', component:UpdateFormComponent},
+            // {path: 'member/:id', component:MemberDetailComponent},
+            {path: 'member/update', component:UpdateFormComponent},
             {path: 'lists', component:ListsComponent},
             {path: 'Messages', component:MessagesComponent},
         ]

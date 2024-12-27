@@ -58,7 +58,11 @@ export class AccountService {
   }
 
   UpdateUser(id: number, updateUser: any): Observable<any>{
-    return this._http.post<any>(API_URLS.BASE_URL + API_URLS.USER.UPDATE_USER(id), updateUser);
+    return this._http.put<any>(API_URLS.BASE_URL + API_URLS.USER.UPDATE_USER(id), updateUser);
+  }
+
+  GetUserById(id: number): Observable<any>{
+    return this._http.get<any>(API_URLS.BASE_URL + API_URLS.USER.GET_USER_BY_ID(id));
   }
   
 }

@@ -31,7 +31,31 @@ export class UpdateFormComponent implements OnInit{
   accountService = inject(AccountService);
   
   ngOnInit(): void {
-    this.updateUserId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.updateUserId = Number(params['id']);
+      console.log('User ID:', this.updateUserId);
+    });
+
+    this.onLoadCurrentUser();
+  }
+
+  onLoadCurrentUser(){
+    this.accountService.GetUserById(Number(this.updateUserId)).subscribe({
+      next: (user) => {
+        console.log(this.updateUserId);
+        console.log(user);
+        this.updateUserForm.patchValue({
+        UserName: user.userName,
+        DoB: user.doB,
+        Gender: user.gender,
+        Introductions: user.introductions,
+        Interest: user.interest,
+        LookingFor: user.lookingFor,
+        City: user.city,
+        Country: user.country,
+        })
+      }
+    })
   }
 
   onUpdate(){

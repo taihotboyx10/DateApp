@@ -16,11 +16,17 @@ public class UserController(IUserRepo _userRepo):BaseAPIController
         return Ok(users);
     }
 
-    [HttpGet("{userName}")]
-    public async Task<ActionResult<MemberDTO>> GetUser(string userName){
+    [HttpGet("user-name/{userName}")]
+    public async Task<ActionResult<MemberDTO>> GetUser([FromRoute]string userName){
         // var user = _dataContext.AppUsers?.Where(u => u.Id == userId).FirstOrDefault();
         var user = await _userRepo.GetUserByUserNameAsync(userName);
         if(user == null) return NotFound();
-        return user;
+        return Ok(user);
+    }
+
+    [HttpGet("user-id/{id}")]
+    public async Task<ActionResult> GetUserById([FromRoute]int id){
+        var user = await _userRepo.GetUserByIdAsync(id);
+        return Ok(user);
     }
 }

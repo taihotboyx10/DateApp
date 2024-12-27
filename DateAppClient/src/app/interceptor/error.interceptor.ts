@@ -6,7 +6,6 @@ import { catchError } from 'rxjs';
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const route = inject(Router);
 
-
   return next(req).pipe(
     catchError(error => {
       if(error){
@@ -21,11 +20,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
               }
               throw modalStateErr.flat();
             }else{
-              alert(error.status + ': ' +error.error);
+              // alert(error.status + ': ' +error.error);
             }
             break;
           case 401:
-            alert(error.status + ": Unauthorize");
+            // alert(error.status + ": Unauthorize");
             break;
           case 404:
             route.navigateByUrl("/not-found");
@@ -44,7 +43,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           case 204:
             break;
           default:
-            alert("Something went wrong");
+            // alert("Something went wrong");
             break;
         }
       }
